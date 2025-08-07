@@ -17,11 +17,12 @@ while True:
 
         else:
             colors = check_matches(guess,answer) # return list of colorss indicating each letter state
-            processed_guess = color_answer(guess,colors)
+            processed_guess = color_answer(guess,colors)  # combine the guess with the colors
             print (processed_guess)
 
     else:
         print("What's that? only 5-letters English words")
+        counter -=1
 
     if counter == 6:
         print("oh oh you lost")
