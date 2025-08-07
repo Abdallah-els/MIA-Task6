@@ -2,7 +2,7 @@ from Backend import *
 
 def user_guess(): # takes the guesses
 
-    guess = input("")
+    guess = input("").lower()
     return guess
 
 def check_guess(guess,answer): # checks if the user won
