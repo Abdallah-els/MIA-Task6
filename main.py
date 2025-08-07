@@ -1,9 +1,16 @@
 from Backend import *
 from logic import *
 
-guess = user_guess()
+counter = 0
 
-if validating_user_word(guess) == 0:
-    check_guess(guess)
-else:
-    pass
+while counter < 6:
+
+    guess = user_guess()
+    counter += 1
+
+    if validating_user_word(guess) == 0:
+        check_guess(guess)
+    else:
+        print("What's that? only 5-letters English words")
+
+print("oh oh you lost")
