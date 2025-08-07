@@ -1,17 +1,15 @@
 import random
 
-def read_database():
+def words():
     with open('words.txt', 'r') as database:
-        words =[word.strip() for word in database.readlines()] # makes a list of all words with out the /n
-    return words
+        lines =[word.strip() for word in database.readlines()] # makes a list of all words with out the /n
+    return lines
             
 def choose_answer():
-    return random.choice(read_database()) #choose random word every time
+    return random.choice(words()) #choose random word every time
 
 def validating_user_word(guess): #return 0 when guess is correct and 1 when incorrect
-    if guess in read_database():
+    if guess in words():
         return 0
     else:
         return 1
-
-
