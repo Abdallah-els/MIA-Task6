@@ -4,7 +4,7 @@ from logic import *
 counter = 0
 answer = generate_answer()
 
-while counter < 6:
+while True:
 
     guess = user_guess()
     counter += 1
@@ -13,6 +13,7 @@ while counter < 6:
 
         if check_guess(guess,answer) == True:
             print("you got it!")
+            break
 
         else:
             colors = check_matches(guess,answer) # return list of colorss indicating each letter state
@@ -22,5 +23,6 @@ while counter < 6:
     else:
         print("What's that? only 5-letters English words")
 
-print("oh oh you lost")
-print("correct answer was " + answer)
+    if counter == 6:
+        print("oh oh you lost")
+        print("correct answer was " + answer)
