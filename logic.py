@@ -8,9 +8,13 @@ def check_guess(guess): # checks if the user won
     if guess == answer():
         print("you got it!")
     else:
-        check_letters(guess)
+        check_exact_matches(guess)
 
-def check_letters(guess):
+def check_exact_matches(guess):
+    exact_matches = ""
     for i in range(5):
         if guess[i] == answer()[i]:
-            print(guess[i])
+            exact_matches += guess[i]
+        else :
+            exact_matches += "_"
+    print(exact_matches)
