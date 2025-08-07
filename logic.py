@@ -11,12 +11,13 @@ def check_guess(guess): # checks if the user won
         check_matches(guess)
 
 def check_matches(guess): 
+    ans = answer()
     exact_matches = ""
     worng_matches = []
     wrong_position = ""
 
     for i in range(5): # checks the letters 1 by 1 to see which letter is in its exact position
-        if guess[i] == answer()[i]:
+        if guess[i] == ans[i]:
             exact_matches += guess[i]
         else :
             exact_matches += "_"
@@ -24,9 +25,10 @@ def check_matches(guess):
     
     for letter in worng_matches: #checks correct letters in wrong position
         for i in range(5):
-            if letter == answer()[i] and letter != exact_matches[i]:
+            if letter == ans[i] and letter != exact_matches[i]:
                 wrong_position += letter
-                wrong_position += " - "
+                wrong_position += " "
+                ans = ans[:i] + "-" + ans[i+1:] # removing checked letter to prevent letter repeating bug
 
 
     print(exact_matches + " - correct letters but wrong position: " + wrong_position)
