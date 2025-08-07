@@ -5,17 +5,17 @@ def user_guess(): # takes the guesses
     guess = input("")
     return guess
 
-def check_guess(guess): # checks if the user won
+def check_guess(guess,answer): # checks if the user won
 
-    if guess == answer():
-        print("you got it!")
+    if guess == answer:
+        return True
     else:
-        check_matches(guess)
+        return False
 
 
-def check_matches(guess): 
+def check_matches(guess,answer): # return list of colorss indicating each letter state
 
-    ans = answer()
+    ans = answer
     exact_matches = ""
     worng_matches = {}
     colors = ['\033[0m' , '\033[0m' , '\033[0m' , '\033[0m' ,'\033[0m'] # default color all letters white
@@ -34,7 +34,7 @@ def check_matches(guess):
                 colors[key] = '\033[33m'
                 ans = ans[:i] + "-" + ans[i+1:] # removing checked letter to prevent letter repeating bug
 
-    color_answer(guess,colors)
+    return colors
 
 
 def color_answer(guess,colors): # combine the guess with the colors
@@ -44,4 +44,4 @@ def color_answer(guess,colors): # combine the guess with the colors
         colored_word += colors[i] + char
     colored_word += '\033[0m'
 
-    print (colored_word)
+    return colored_word

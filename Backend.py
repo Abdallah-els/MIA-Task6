@@ -5,13 +5,13 @@ def words():
         lines =[word.strip() for word in database.readlines()] # makes a list of all words with out the /n
     return lines
             
-def answer():
-    return "words"
-    #return random.choice(words()) #choose random word every time
-    #second line should be used after testing
+def generate_answer():
 
-def validating_user_word(guess): #return 0 when guess is correct and 1 when incorrect
+    return random.choice(words()) #choose random word every time
+
+
+def validating_user_word(guess): #return True when guess is correct and False when incorrect
     if guess in words():
-        return 0
+        return True
     else:
-        return 1
+        return False
