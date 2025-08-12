@@ -46,13 +46,10 @@ def process(guess):
     if validating_user_word(guess) == True:
 
         guesses[tries] = word # saving the guess after verifing it is valid
+        colors[tries] = check_matches(guess,answer) # returns a list of colors to change color of each letter
 
         if check_guess(guess,answer) == True: # user won
-
            won = True
-
-        else:
-            colors[tries] = check_matches(guess,answer) # returns a list of colors
 
         tries +=1
         word = "" #resseting word after each try
