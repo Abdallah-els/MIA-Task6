@@ -1,4 +1,6 @@
 import pygame
+from Backend import *
+from logic import *
 
 # iniallizing pygame 
 pygame.init()
@@ -20,7 +22,7 @@ rectangle = pygame.transform.scale(rectangle, (30, 40))
 
 #settin font
 font = pygame.font.Font(None, 50)
-input_text = "" 
+word = "" 
 
 running = True
 while running:
@@ -29,7 +31,10 @@ while running:
             running = False
         # taking input
         elif event.type == pygame.KEYDOWN:
-            input_text += event.unicode 
+            if event.key == pygame.K_BACKSPACE: # deleting character
+                word = word[:-1]
+            else:
+                word += event.unicode 
 
     screen.blit(background, (0, 0)) #display screen
     screen.blit(WORDLE, (50 , 15)) #display WORDLE
@@ -42,15 +47,24 @@ while running:
     
     
     # showing the input
-    word = input_text
     if word:
         for i,letter in enumerate(word):
-            # printing the output 
-            text = font.render(letter, True, (255, 255, 255))
-            screen.blit(text, (130 + 45 * i, 120))
+            # printing the input 
+            if len(word) <= 5:
+                text = font.render(letter, True, (255, 255, 255))
+                screen.blit(text, (130 + 45 * i, 120))
 
-            if len(word) == 5:
-                pass
+            elif len(word) == 5:
+
+                #start processing the guess
+                guess = word
+
+                if validating_user_word(guess) == True:
+                    pass
+    
+                else: 
+                    word = ""
+
                 
 
 
