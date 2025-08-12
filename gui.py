@@ -2,7 +2,9 @@ import pygame
 from Backend import *
 from logic import *
 
-answer = generate_answer()
+won = False
+# answer = generate_answer()
+answer = "happy"
 
 # iniallizing pygame 
 pygame.init()
@@ -29,10 +31,14 @@ word = ""
 #processing the guess
 def process(guess):
     global word
+    global won
+    
     if validating_user_word(guess) == True:
 
-        if check_guess(guess,answer) == True:
-            pass
+        if check_guess(guess,answer) == True: # user won
+
+           won = True
+
         else:
             pass
 
@@ -50,7 +56,7 @@ while running:
             running = False
 
         # taking input
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN and not won:
             if event.key == pygame.K_BACKSPACE: # deleting character
                 word = word[:-1]
 
@@ -78,6 +84,12 @@ while running:
             text = font.render(letter, True, (255, 255, 255))
             screen.blit(text, (130 + 45 * i, 120))
 
+    if won:
+
+        winning_messege = "you got it!"
+        text = font.render(winning_messege, True, (255, 255, 255))
+        screen.blit(text, (140, 520))
+        
 
 
     pygame.display.flip()
