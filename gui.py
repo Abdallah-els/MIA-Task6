@@ -1,8 +1,9 @@
 import pygame
 from Backend import *
-from logic import *
+from logic_gui import *
 
 won = False
+tries = 0
 # answer = generate_answer()
 answer = "happy"
 
@@ -21,8 +22,14 @@ WORDLE = pygame.image.load("gui files/WORDLE.png")
 WORDLE = pygame.transform.scale(WORDLE, (350, 100))
 
 #setting rectangles
-rectangle = pygame.image.load("gui files/rect.jpeg")
-rectangle = pygame.transform.scale(rectangle, (30, 40))
+grey_rectangle = pygame.image.load("gui files/grey.jpeg")
+grey_rectangle = pygame.transform.scale(grey_rectangle, (30, 40))
+yellow_rectangle = pygame.image.load("gui files/yellow.jpeg")
+yellow_rectangle = pygame.transform.scale(yellow_rectangle, (30, 40))
+green_rectangle = pygame.image.load("gui files/green.jpeg")
+green_rectangle = pygame.transform.scale(green_rectangle, (30, 40))
+
+colors = [["grey" for j in range(5)] for i in range(6)]
 
 #settin font
 font = pygame.font.Font(None, 50)
@@ -32,15 +39,18 @@ word = ""
 def process(guess):
     global word
     global won
+    global tries
     
     if validating_user_word(guess) == True:
+        tries +=1
 
         if check_guess(guess,answer) == True: # user won
 
            won = True
 
         else:
-            pass
+            
+            colors[tries] = check_matches(guess,answer)
 
     else:
         word = ""
@@ -71,8 +81,14 @@ while running:
 
     #draw squares
     for i in range(6):
-        for j in range(5):
-            screen.blit(rectangle, (125 + 45*j , 120 + 65 * i))
+        for j,color in enumerate(colors[i]):
+            if color == "grey":
+                screen.blit(grey_rectangle, (125 + 45*j , 120 + 65 * i))
+            elif color == "green":
+                screen.blit(green_rectangle, (125 + 45*j , 120 + 65 * i))
+            elif color == "yellow":
+                screen.blit(yellow_rectangle, (125 + 45*j , 120 + 65 * i))
+            
 
     
     
