@@ -2,8 +2,13 @@ import pygame
 
 # iniallizing pygame 
 pygame.init()
-screen = pygame.display.set_mode((450, 600)) # setting screen size
-pygame.display.set_caption("WORDLE by Elsherbiny")
+WIDTH, HEIGHT = 450,600 # setting screen size
+screen = pygame.display.set_mode((WIDTH, HEIGHT)) 
+pygame.display.set_caption("WORDLE by Elsherbiny") # caption
+
+#setting background
+background = pygame.image.load("gui files/bg.jpeg")
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 running = True
 while running:
@@ -11,7 +16,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill((0, 0, 0))  # Fill screen with black
+    screen.blit(background, (0, 0))
     pygame.display.flip()
 
 pygame.quit()
