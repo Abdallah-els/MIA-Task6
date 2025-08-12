@@ -44,6 +44,7 @@ def process(guess):
     global guesses
     
     if validating_user_word(guess) == True:
+
         guesses[tries] = word # saving the guess after verifing it is valid
 
         if check_guess(guess,answer) == True: # user won
@@ -70,7 +71,7 @@ while running:
             running = False
 
         # taking input
-        if event.type == pygame.KEYDOWN and not won:
+        if event.type == pygame.KEYDOWN and not won and tries < 6:
             if event.key == pygame.K_BACKSPACE: # deleting character
                 word = word[:-1]
 
@@ -113,10 +114,19 @@ while running:
 
 
     if won:
-
+        # displaying winning messege
         winning_messege = "you got it!"
         text = font.render(winning_messege, True, (255, 255, 255))
         screen.blit(text, (140, 520))
+
+    elif tries == 6:
+        # displaying losing messege
+        losing_messege1 = "you lost"
+        losing_messege2 = "the answer was " + answer
+        text = font.render(losing_messege1, True, (255, 255, 255))
+        screen.blit(text, (150, 500))
+        text = font.render(losing_messege2, True, (255, 255, 255))
+        screen.blit(text, (50, 540))
         
 
 
