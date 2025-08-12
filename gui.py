@@ -2,6 +2,8 @@ import pygame
 from Backend import *
 from logic import *
 
+answer = generate_answer()
+
 # iniallizing pygame 
 pygame.init()
 WIDTH, HEIGHT = 450,600 # setting screen size
@@ -24,16 +26,38 @@ rectangle = pygame.transform.scale(rectangle, (30, 40))
 font = pygame.font.Font(None, 50)
 word = "" 
 
+#processing the guess
+def process(guess):
+    global word
+    if validating_user_word(guess) == True:
+
+        if check_guess(guess,answer) == True:
+            pass
+        else:
+            pass
+
+    else:
+        word = ""
+            
+
+
+
+# main
 running = True
 while running:
     for event in pygame.event.get(): # running throw each event happened in the loop to seaarch for exit
         if event.type == pygame.QUIT:
             running = False
+
         # taking input
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE: # deleting character
                 word = word[:-1]
-            else:
+
+            elif event.key == pygame.K_RETURN and len(word) == 5: # start processing after pressing enter
+                process(word)
+
+            elif len(word) < 5 and event.unicode.isalpha(): # only allowing letters
                 word += event.unicode 
 
     screen.blit(background, (0, 0)) #display screen
@@ -49,26 +73,15 @@ while running:
     # showing the input
     if word:
         for i,letter in enumerate(word):
+
             # printing the input 
-            if len(word) <= 5:
-                text = font.render(letter, True, (255, 255, 255))
-                screen.blit(text, (130 + 45 * i, 120))
-
-            elif len(word) == 5:
-
-                #start processing the guess
-                guess = word
-
-                if validating_user_word(guess) == True:
-                    pass
-    
-                else: 
-                    word = ""
-
-                
+            text = font.render(letter, True, (255, 255, 255))
+            screen.blit(text, (130 + 45 * i, 120))
 
 
 
     pygame.display.flip()
 
 pygame.quit()
+
+
