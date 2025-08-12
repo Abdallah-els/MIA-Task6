@@ -29,28 +29,32 @@ yellow_rectangle = pygame.transform.scale(yellow_rectangle, (30, 40))
 green_rectangle = pygame.image.load("gui files/green.jpeg")
 green_rectangle = pygame.transform.scale(green_rectangle, (30, 40))
 
-colors = [["grey" for j in range(5)] for i in range(6)]
+colors = [["grey" for j in range(5)] for i in range(6)] # making 2d list containing all rectangles
 
-#settin font
+#setting font
 font = pygame.font.Font(None, 50)
-word = "" 
+guesses = ["" for i in range(6)] # making a list to store all guesses
+word = ""
 
 #processing the guess
 def process(guess):
     global word
     global won
     global tries
+    global guesses
     
     if validating_user_word(guess) == True:
-        tries +=1
+        guesses[tries] = word # saving the guess after verifing it is valid
 
         if check_guess(guess,answer) == True: # user won
 
            won = True
 
         else:
-            
-            colors[tries] = check_matches(guess,answer)
+            colors[tries] = check_matches(guess,answer) # returns a list of colors
+
+        tries +=1
+        word = "" #resseting word after each try
 
     else:
         word = ""
@@ -90,15 +94,23 @@ while running:
                 screen.blit(yellow_rectangle, (125 + 45*j , 120 + 65 * i))
             
 
+    #showing previous tries
+    for j,guess in enumerate(guesses):
+        for i,letter in enumerate(guess):
+            text = font.render(letter, True, (255, 255, 255))
+            screen.blit(text, (130 + 45 * i, 120 + 65 * j))
+
     
-    
-    # showing the input
-    if word:
+
+    # showing the word which is being written
+    if word: 
         for i,letter in enumerate(word):
 
             # printing the input 
             text = font.render(letter, True, (255, 255, 255))
-            screen.blit(text, (130 + 45 * i, 120))
+            screen.blit(text, (130 + 45 * i, 120 + 65 * tries))
+
+
 
     if won:
 
