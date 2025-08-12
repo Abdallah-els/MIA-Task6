@@ -4,8 +4,8 @@ from logic_gui import *
 
 won = False
 tries = 0
-# answer = generate_answer()
-answer = "happy"
+# answer = generate_answer().upper()
+answer = "happy".upper()
 
 # iniallizing pygame 
 pygame.init()
@@ -23,11 +23,11 @@ WORDLE = pygame.transform.scale(WORDLE, (350, 100))
 
 #setting rectangles
 grey_rectangle = pygame.image.load("gui files/grey.jpeg")
-grey_rectangle = pygame.transform.scale(grey_rectangle, (30, 40))
+grey_rectangle = pygame.transform.scale(grey_rectangle, (35, 40))
 yellow_rectangle = pygame.image.load("gui files/yellow.jpeg")
-yellow_rectangle = pygame.transform.scale(yellow_rectangle, (30, 40))
+yellow_rectangle = pygame.transform.scale(yellow_rectangle, (35, 40))
 green_rectangle = pygame.image.load("gui files/green.jpeg")
-green_rectangle = pygame.transform.scale(green_rectangle, (30, 40))
+green_rectangle = pygame.transform.scale(green_rectangle, (35, 40))
 
 colors = [["grey" for j in range(5)] for i in range(6)] # making 2d list containing all rectangles
 
@@ -43,7 +43,7 @@ def process(guess):
     global tries
     global guesses
     
-    if validating_user_word(guess) == True:
+    if validating_user_word(guess.lower()) == True:
 
         guesses[tries] = word # saving the guess after verifing it is valid
         colors[tries] = check_matches(guess,answer) # returns a list of colors to change color of each letter
@@ -76,7 +76,7 @@ while running:
                 process(word)
 
             elif len(word) < 5 and event.unicode.isalpha(): # only allowing letters
-                word += event.unicode 
+                word += event.unicode.upper() # making all letters capital
 
     screen.blit(background, (0, 0)) #display screen
     screen.blit(WORDLE, (50 , 15)) #display WORDLE
@@ -96,7 +96,7 @@ while running:
     for j,guess in enumerate(guesses):
         for i,letter in enumerate(guess):
             text = font.render(letter, True, (255, 255, 255))
-            screen.blit(text, (130 + 45 * i, 120 + 65 * j))
+            screen.blit(text, (128 + 45 * i, 125 + 65 * j))
 
     
 
@@ -106,7 +106,7 @@ while running:
 
             # printing the input 
             text = font.render(letter, True, (255, 255, 255))
-            screen.blit(text, (130 + 45 * i, 120 + 65 * tries))
+            screen.blit(text, (128 + 45 * i, 125 + 65 * tries))
 
 
 
